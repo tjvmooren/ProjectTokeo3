@@ -191,3 +191,4 @@ Establish a recoverable baseline for Project Tokeo3 prior to Phase 1 changes.
 3. Restore configuration files
 4. Restart and verify services
 
+“The node currently operates on laptop hardware with a graphical environment; user-level systemd units were included for completeness but are not relied upon for security controls.”
