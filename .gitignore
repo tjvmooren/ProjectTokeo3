@@ -1,10 +1,17 @@
-# Obsidian local settings
+# ---- Obsidian (keep vault settings local) ----
 .obsidian/
-# OS detritus
+
+# ---- OS detritus ----
 .DS_Store
 Thumbs.db
-# Node/java/python
+
+# ---- Logs ----
+*.log
+
+# ---- Node/Build artifacts ----
 node_modules/
 dist/
+
+# ---- Secrets / env ----
 .env
-*.log
+.env.*
