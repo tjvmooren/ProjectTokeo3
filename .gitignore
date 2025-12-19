@@ -1,0 +1,10 @@
+# Obsidian local settings
+.obsidian/workspace.json
+# OS detritus
+.DS_Store
+Thumbs.db
+# Node/java/python
+node_modules/
+dist/
+.env
+*.log
