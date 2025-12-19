@@ -93,3 +93,28 @@ install fail2ban
 
 ### Verification
 - fail2ban-client status shows active sshd jail
+- **NIST CSF PR.PT-4** (protective technology)
+    
+- **NIST CSF DE.CM-1** (continuous monitoring)
+
+
+SYSTEM AND COMMAND AUDITING - AUDITD 
+sudo apt install -y auditd audispd-plugins
+sudo systemctl enable auditd
+- DO NOT EDIT audit.rules directly
+- instead make a rules file
+-sudo nano /etc/audit/rules.d/tokeo3-baseline.rules
+## System Auditing (auditd)
+- auditd installed and enabled at boot
+- Custom baseline rules applied via /etc/audit/rules.d
+- Audits:
+  - Identity and authentication files
+  - sudoers configuration
+  - SSH daemon configuration
+  - System time changes
+  - Kernel module loading
+
+### Verification
+- auditctl confirms rules loaded
+- ausearch returns sudo events
+- 
