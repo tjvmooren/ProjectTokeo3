@@ -137,4 +137,57 @@ chronyc sources -v
 - System uses modern Linux kernel with non-blocking /dev/urandom
 - No entropy starvation observed during SSH or cryptographic operations
 - rng-tools not installed at this stage to avoid unnecessary complexity
+### Time Synchronization Verification
+- Chrony synchronized to stratum-2 NTP sources
+- System clock offset measured in microseconds
+- RMS offset ~1 ms
+- Leap status normal
+- Multiple upstream sources available for redundancy
+Chrony was deployed and validated as the system time synchronization service.
+The node is synchronized to stratum-2 NTP sources with microsecond-level drift and millisecond-level RMS offset. Multiple upstream sources are available, and leap status is normal, ensuring reliable timestamps for logs, cryptographic operations, and incident timelines.
+
+Last step? Add in Snapshot
+dpkg --get-selections > ~/tokeo3_phase0_packages.list
+chekkkk
+wc -l ~/tokeo3_phase0_packages.list
+create the snapshot directory 
+mkdir -p ~/tokeo3_snapshots/phase0
+Copy critical configs:
+`sudo cp -a \ /etc/ssh \ /etc/ufw \ /etc/fail2ban \ /etc/audit \ /etc/chrony \ /etc/systemd \ /etc/hostname \ /etc/hosts \ ~/tokeo3_snapshots/phase0/`
+Fix ownership so your user can read them:
+`sudo chown -R tokeoadm:tokeoadm ~/tokeo3_snapshots`
+Verify:
+`ls ~/tokeo3_snapshots/phase0`
+Capture system metadata (lightweight but valuable)
+`uname -a > ~/tokeo3_snapshots/phase0/system_info.txt lsb_release -a >> ~/tokeo3_snapshots/phase0/system_info.txt timedatectl >> ~/tokeo3_snapshots/phase0/system_info.txt`
+rollback .tar.gz file
+tar czvf ~/tokeo3_phase0_snapshot.tar.gz -C ~/tokeo3_snapshots phase0
+Rollback concept :
+1. Fresh Ubuntu install (same LTS)
+2. Restore packages:
+3. `dpkg --set-selections < tokeo3_phase0_packages.list apt-get dselect-upgrade`
+4. Restore configs from snapshot archive
+5. Restart services (SSH, UFW, fail2ban, auditd, chrony)
+6. Verify access and logs
+# Phase 0 — Snapshot & Rollback Strategy
+
+## Objective
+Establish a recoverable baseline for Project Tokeo3 prior to Phase 1 changes.
+
+## Snapshot Method
+- Filesystem-based snapshot (bare-metal friendly)
+- Package manifest capture
+- Critical configuration backups
+- Manual restore playbook
+
+## Artifacts Captured
+- Installed package list
+- SSH, UFW, Fail2ban, auditd, Chrony configs
+- System metadata (kernel, OS, time config)
+
+## Rollback Concept
+1. Reinstall base OS (same Ubuntu LTS)
+2. Restore package selections
+3. Restore configuration files
+4. Restart and verify services
 
