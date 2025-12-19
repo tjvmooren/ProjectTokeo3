@@ -117,4 +117,24 @@ sudo systemctl enable auditd
 ### Verification
 - auditctl confirms rules loaded
 - ausearch returns sudo events
-- 
+
+Further hardening ------ Time Syncing and Entropy
+Install chrony
+sudo apt update
+sudo apt install -y chrony
+sudo systemctl enable --now chrony
+Check chrony
+chronyc tracking
+chronyc sources -v
+	You want to see sources listed and not “unsynchronised”.
+## Time + Entropy Hardening
+- Time sync configured with chrony
+- Timezone set (America/Phoenix or UTC)
+- Verified synchronization using chronyc
+- Verified entropy availability via /proc/sys/kernel/random/entropy_avail
+## Entropy Assessment
+- Kernel entropy availability observed at ~256 during idle state
+- System uses modern Linux kernel with non-blocking /dev/urandom
+- No entropy starvation observed during SSH or cryptographic operations
+- rng-tools not installed at this stage to avoid unnecessary complexity
+
