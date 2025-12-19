@@ -1,5 +1,6 @@
 # ---- Obsidian (keep vault settings local) ----
 .obsidian/
+*.docx
 
 # ---- OS detritus ----
 .DS_Store
